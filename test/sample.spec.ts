@@ -19,4 +19,11 @@ describe('sample', () => {
             expect(sampleService.multiplyChecked(2, 3)).toStrictEqual(6);
         });
     });
+
+    describe('basic', () => {
+        it('should throw error', () => {
+            const value: any = { v: 3};
+            expect(() => { sampleService.multiplyChecked(2, value);}).toThrow();
+        });
+    });
 });
