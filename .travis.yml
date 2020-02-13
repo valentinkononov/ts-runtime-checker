@@ -1,7 +1,16 @@
 language: node_js
 node_js:
-  - "10"
+  - "12"
 script:
+  - npm install
   - npm run lint
   - npm run build
   - npm run test:ci
+
+jobs:
+  include:
+    - node_js: 12
+      script:
+        - npm run test:cov
+      after_script:
+        - npm run upload-coverage

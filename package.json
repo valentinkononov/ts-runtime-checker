@@ -14,13 +14,16 @@
     "restart": "rimraf dist && npx tsc && node dist/test/run",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
-    "test:ci": "jest",
+    "test:ci": "npm test",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docs": "typedoc --out docs src",
-    "compodoc": "npx compodoc -p tsconfig.json -s"
+    "compodoc": "npx compodoc -p tsconfig.json -s",
+    "coverage": "npm test && opener coverage/lcov-report/index.html",
+    "upload-coverage": "codecov",
+    "publish": "npm run build && npm publish ./dist"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13"
@@ -40,7 +43,8 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
     "typedoc": "^0.15.1",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "codecov": "^3.6.4"
   },
   "jest": {
     "moduleFileExtensions": [
