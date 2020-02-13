@@ -1,7 +1,7 @@
 {
   "name": "ts-runtime-checker",
   "version": "0.0.1",
-  "description": "",
+  "description": "Runtime checking of types and integrity for Typescript projects",
   "repository": "https://github.com/valentinkononov/ts-runtime-checker",
   "author": "Valentin Kononov",
   "license": "MIT",
