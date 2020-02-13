@@ -1,6 +1,6 @@
 {
   "name": "ts-stronger-types",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Runtime checking of types and integrity for Typescript projects",
   "repository": "https://github.com/valentinkononov/ts-runtime-checker",
   "author": "Valentin Kononov, http://kononov.space",

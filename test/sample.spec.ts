@@ -23,7 +23,9 @@ describe('sample', () => {
     describe('basic', () => {
         it('should throw error', () => {
             const value: any = { v: 3};
-            expect(() => { sampleService.multiplyChecked(2, value);}).toThrow();
+            expect(() => {
+                sampleService.multiplyChecked(2, value);
+            }).toThrow();
         });
     });
 });
