@@ -11,6 +11,7 @@
     "build": "npx tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/test/run",
+    "restart": "rimraf dist && npx tsc && node dist/test/run",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:watch": "jest --watch",
