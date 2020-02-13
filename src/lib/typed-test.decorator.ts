@@ -1,10 +1,11 @@
 import 'reflect-metadata';
-import {Reflection} from "typedoc";
+import {Reflection} from 'typedoc';
 
 export function Typed() {
     return (
-        target: Object,
+        target: object, // tslint:disable
         propertyName: string,
+        // tslint:disable-next-line
         descriptor: TypedPropertyDescriptor<Function>,
     ) => {
         const method = descriptor.value;
@@ -17,7 +18,7 @@ export function Typed() {
 
 export function TypedClass(): any {
     return (target: any) => {
-        console.log(target)
+        console.log(target);
         const paramTypes = Reflect.getMetadata(
             'design:paramtypes',
             target.prototype,
@@ -25,16 +26,16 @@ export function TypedClass(): any {
         );
         console.log(paramTypes);
 
-        const classMembers = Object.getOwnPropertyDescriptors(target.prototype);
-        const memberNames = Object.keys(classMembers);
+        const classMembers = Object.getOwnPropertyDescriptors(target.prototype);    // tslint:disable
+        const memberNames = Object.keys(classMembers);  // tslint:disable
         memberNames.forEach(name => {
             const method: any = classMembers[name].value;
             if (method instanceof Function) {
                 Object.defineProperty(target.prototype, method.name, {
-                    value: function () {
+                    value() {
                         checkTypes(target.prototype, method.name, arguments);
                         return method.apply(this, arguments);
-                    }
+                    },
                 });
             }
         });
@@ -51,18 +52,20 @@ function checkTypes(target: Object, propertyName: string, ...args: any): void {
         target,
         propertyName,
     );
-    console.log(paramTypes)
+    console.log(paramTypes);
     console.timeEnd('metadata');
     console.time('foreachParam');
-    paramTypes && paramTypes.forEach((param, index) => {
-        const actualType = typeof args[index];
-        const expectedType = param instanceof Function ? typeof param() : param.name;
-        if (actualType !== expectedType) {
-            throw new TypeError(
-                `Argument: ${index} of function ${propertyName} has type: ${actualType} different from expected type: ${expectedType}.`,
-            );
-        }
-    });
+    if (paramTypes) {
+        paramTypes.forEach((param, index) => {
+            const actualType = typeof args[index];
+            const expectedType = param instanceof Function ? typeof param() : param.name;
+            if (actualType !== expectedType) {
+                throw new TypeError(
+                    `Argument: ${index} of function ${propertyName} has type: ${actualType} different from expected type: ${expectedType}.`,
+                );
+            }
+        });
+    }
     console.timeEnd('foreachParam');
     console.timeEnd('checkParams');
 }

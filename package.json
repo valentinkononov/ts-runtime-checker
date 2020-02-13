@@ -13,6 +13,7 @@
     "start": "node dist/test/run",
     "restart": "rimraf dist && npx tsc && node dist/test/run",
     "lint": "tslint -p tsconfig.json -c tslint.json",
+    "lint:fix": "tslint --fix -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:ci": "npm test",
     "test:watch": "jest --watch",

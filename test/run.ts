@@ -3,7 +3,8 @@ import { SampleService } from './sample.service';
 console.log('Start');
 const sampleService = new SampleService();
 
-const x: any = 9, y: any = '9';
+const x: any = 9;
+const y: any = '9';
 let result = sampleService.sum(x, y);
 console.log(result);
 
@@ -23,7 +24,8 @@ result = sampleService.multiplyChecked(arg1, arg2);    // checked with standard 
 console.timeEnd('test_checked');    // 0.298ms
 console.log(result);
 
-const a: any = 1, b: any = '2';
+const a: any = 1;
+const b: any = '2';
 result = sampleService.multiply(a, b);
 
 const arg3: any = 'test';

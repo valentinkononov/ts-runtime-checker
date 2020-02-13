@@ -11,12 +11,12 @@ describe('sample', () => {
     describe('basic', () => {
         it('should return 6', () => {
             expect(sampleService.multiply(2, 3)).toStrictEqual(6);
-        })
-    })
+        });
+    });
 
     describe('basic', () => {
         it('should return 6', () => {
             expect(sampleService.multiplyChecked(2, 3)).toStrictEqual(6);
-        })
-    })
+        });
+    });
 });
