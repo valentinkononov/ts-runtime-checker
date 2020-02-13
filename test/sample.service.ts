@@ -1,6 +1,6 @@
-import {Typed, TypedClass} from '../src/lib/typed-test.decorator';
+// import {Typed, TypedClass} from '../src/lib/typed-test.decorator';
+import { Typed } from '../src';
 
-@TypedClass()
 export class SampleService {
     public multiply(num: number, num2: number): number {
         console.log(num);
