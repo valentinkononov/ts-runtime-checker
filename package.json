@@ -1,10 +1,14 @@
 {
   "name": "ts-stronger-types",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Runtime checking of types and integrity for Typescript projects",
   "repository": "https://github.com/valentinkononov/ts-runtime-checker",
-  "author": "Valentin Kononov",
+  "author": "Valentin Kononov, http://kononov.space",
+  "keywords": ["typescript", "runtime", "decorator"],
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "debug": "npx tsc --watch",
@@ -24,7 +28,7 @@
     "compodoc": "npx compodoc -p tsconfig.json -s",
     "coverage": "npm test && opener coverage/lcov-report/index.html",
     "upload-coverage": "codecov",
-    "publish": "npm run build && npm publish ./dist"
+    "prepublish": "npm run lint && npm run build && npm run test"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13"
