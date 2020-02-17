@@ -3,6 +3,7 @@
   "version": "0.0.4",
   "description": "Runtime checking of types and integrity for Typescript projects",
   "repository": "https://github.com/valentinkononov/ts-runtime-checker",
+  "issues": "https://github.com/valentinkononov/ts-runtime-checker/issues",
   "author": "Valentin Kononov, http://kononov.space",
   "keywords": ["typescript", "runtime", "decorator"],
   "license": "MIT",
@@ -28,7 +29,8 @@
     "compodoc": "npx compodoc -p tsconfig.json -s",
     "coverage": "npm test && opener coverage/lcov-report/index.html",
     "upload-coverage": "codecov",
-    "prepublish": "npm run lint && npm run build && npm run test"
+    "prepublish": "npm run lint && npm run build && npm run test",
+    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13"
