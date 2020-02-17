@@ -1,6 +1,6 @@
 {
   "name": "ts-stronger-types",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Runtime checking of types and integrity for Typescript projects",
   "repository": "https://github.com/valentinkononov/ts-runtime-checker",
   "issues": "https://github.com/valentinkononov/ts-runtime-checker/issues",
@@ -8,7 +8,8 @@
   "keywords": ["typescript", "runtime", "decorator"],
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "postinstall.js"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
