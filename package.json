@@ -5,7 +5,11 @@
   "repository": "https://github.com/valentinkononov/ts-runtime-checker",
   "issues": "https://github.com/valentinkononov/ts-runtime-checker/issues",
   "author": "Valentin Kononov, http://kononov.space",
-  "keywords": ["typescript", "runtime", "decorator"],
+  "keywords": [
+    "typescript",
+    "runtime",
+    "decorator"
+  ],
   "license": "MIT",
   "files": [
     "dist",
@@ -34,6 +38,7 @@
     "postinstall": "node postinstall.js"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
