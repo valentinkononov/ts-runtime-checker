@@ -14,7 +14,7 @@ console.log(result);
 const arg1: any = 2;
 const arg2: any = 3;
 console.time('test_clean');
-result = sampleService.multiply(arg1, arg2);    // as usual
+result = sampleService.multiply(arg1, arg2['dd']);    // as usual
 console.timeEnd('test_clean'); // 0.079ms
 console.time('test_checked');
 result = sampleService.multiplyChecked(arg1, arg2);    // checked with standard arguments
