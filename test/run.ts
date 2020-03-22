@@ -1,6 +1,6 @@
 import { TypedTestService } from './typed-test.service';
-import {TypedConfig, TypedOptions} from "../src/lib/typed.config";
-import {Typed} from "../src";
+import {TypedConfig, TypedOptions} from '../src/lib/typed.config';
+import {Typed} from '../src';
 
 console.log('Start');
 const sampleService = new TypedTestService();
@@ -25,11 +25,10 @@ const y: any = new Date();
 // };
 
 // let result = sampleService.funcDateTyped(x, new Date());
-let result = sampleService.funcArrayNumTyped(value);
+const result = sampleService.funcArrayNumTyped(value);
 // result = sampleService.funcDateTyped(1, new Date());
 // result = sampleService.multiplyChecked(x, y);
 // console.log(result);
-
 
 // let result = sampleService.sum(x, y);
 // console.log(result);

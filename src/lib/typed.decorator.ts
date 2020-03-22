@@ -29,11 +29,7 @@ const ARRAY_TYPE: string = 'Array';
 // tslint:disable-next-line:ban-types
 export function Typed(config?: TypedOptions) {
     // tslint:disable-next-line:ban-types
-    return (
-        target: Object,
-        propertyName: string,
-        descriptor: TypedPropertyDescriptor<Function>,
-    ) => {
+    return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
         const method = descriptor.value;
         descriptor.value = function() {
             const options: TypedOptions = config || TypedConfig.get();

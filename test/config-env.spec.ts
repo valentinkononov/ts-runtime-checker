@@ -19,7 +19,7 @@ describe('config-env', () => {
         it('should pass through checks', () => {
             const testArg: any = 'bad';
             expect(
-                sampleService.funcNumberTyped(2, testArg)
+                sampleService.funcNumberTyped(2, testArg),
             ).toStrictEqual(NaN);
         });
     });

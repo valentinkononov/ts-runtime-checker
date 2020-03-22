@@ -10,7 +10,7 @@ export interface TypedOptions {
 
 /**
  * Defines how @Typed decorator is configured, turned on or off, and other behavior
- * */
+ */
 export class TypedConfig {
 
     /**
@@ -20,7 +20,7 @@ export class TypedConfig {
      *     throwError: true,
      *     checkArgumentLength: true,
      * }
-     * */
+     */
     private static getInitialOptions(): TypedOptions {
         // console.log('[TypedConfig]: TYPED = ' + process.env.TYPED);
         let envSetting: boolean = true;
@@ -31,14 +31,14 @@ export class TypedConfig {
             enable: envSetting,
             throwError: true,
             checkArgumentLength: true,
-        }
+        };
     }
 
     private static options: TypedOptions = TypedConfig.getInitialOptions();
 
     /**
      * Set initial configuration, read settings from process.env
-     * */
+     */
     public static reset() {
         this.options = TypedConfig.getInitialOptions();
     }
@@ -49,7 +49,7 @@ export class TypedConfig {
      *      - enable: true or false. It defines should it work or npt
      *      - throwError: true or false. It defines how it should work, log error or throw it
      *      - checkArgumentLength: true or false. It defines should decorator check length of arguments
-     * */
+     */
     public static set(options: TypedOptions) {
         this.options = options;
     }
@@ -59,13 +59,14 @@ export class TypedConfig {
     }
 
     private static parseBoolean(value: string): boolean {
-        switch(value.toLowerCase().trim()){
-            case "true": case "yes": case "1": return true;
-            case "false": case "no": case "0": case null: return false;
+        switch (value.toLowerCase().trim()) {
+            case 'true': case 'yes': case '1': return true;
+            case 'false': case 'no': case '0': case null: return false;
             default: return Boolean(value);
         }
     }
 
+    // tslint:disable-next-line:ban-types
     public static ExcludeDecorator(decorator: Function) {
         decorator = function() {
             // tslint:disable-next-line:ban-types
