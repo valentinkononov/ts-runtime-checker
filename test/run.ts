@@ -6,6 +6,7 @@ console.log('Start');
 const sampleService = new TypedTestService();
 //
 const x: any = 9;
+const value: any = ['str'];
 const y: any = new Date();
 
 // TypedConfig.set({
@@ -23,7 +24,8 @@ const y: any = new Date();
 //     };
 // };
 
-let result = sampleService.funcDateTyped(x, new Date());
+// let result = sampleService.funcDateTyped(x, new Date());
+let result = sampleService.funcArrayNumTyped(value);
 // result = sampleService.funcDateTyped(1, new Date());
 // result = sampleService.multiplyChecked(x, y);
 // console.log(result);

@@ -5,15 +5,22 @@ import { TypedConfig, TypedOptions } from './typed.config';
 // propertyName = function
 // descriptor = what a function
 
-// TODO: arrays checks
-// TODO: Dates checks
+// Related: https://github.com/microsoft/TypeScript/issues/7169
+// http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4
+
+// DONE: arrays checks
+// DONE: Dates checks
+// DONE: more tests
 // TODO: string checks
 // TODO: Bigint checks
 // TODO: Optional arguments checks
 // TODO: move all checks into separate functions
 // TODO: remove console logs
+// TODO: add Boolean checks
+// TODO: check return type by 'design:returntype'
 
 const DATE_TYPE: string = 'Date';
+const ARRAY_TYPE: string = 'Array';
 
 /***
  * Typed decorator checks function arguments amount and types in runtime
@@ -34,11 +41,10 @@ export function Typed(config?: TypedOptions) {
                 return method.apply(this, arguments);
             }
 
-            const paramTypes = Reflect.getMetadata(
-                'design:paramtypes',
-                target,
-                propertyName,
-            );
+            const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyName);
+
+            // each element in paramTypes has: name, isArray, prototype, from, of
+            // console.log(Object.getOwnPropertyNames(paramTypes[0]));
 
             if (options.checkArgumentLength) {
                 // 1 check length of arguments and parameters
@@ -65,14 +71,22 @@ export function Typed(config?: TypedOptions) {
                     actualType = DATE_TYPE;
                 }
 
+                if (arguments[i] instanceof Array) {
+                    actualType = ARRAY_TYPE;
+                }
+
                 let expectedType: string = paramTypes[i].name;
 
                 if (expectedType === DATE_TYPE) {
                     // do nothing
+                } else if (expectedType === ARRAY_TYPE) {
+                    // console.log(arguments[i].length);
+                    // console.log(typeof arguments[i][0]);
+
                 } else if (paramTypes[i] instanceof Function) {
                     expectedType = typeof paramTypes[i]();
                 }
-                //console.log('[TEST]', actualType, expectedType);
+                // console.log('[TEST]', actualType, expectedType);
                 if (actualType !== expectedType) {
                     const errorMessage = `Argument: ${arguments[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
                     if (options.throwError) {
