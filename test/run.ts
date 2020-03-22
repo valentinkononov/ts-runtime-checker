@@ -1,38 +1,62 @@
-import { SampleService } from './sample.service';
+import { TypedTestService } from './typed-test.service';
+import {TypedConfig, TypedOptions} from "../src/lib/typed.config";
+import {Typed} from "../src";
 
 console.log('Start');
-const sampleService = new SampleService();
-
+const sampleService = new TypedTestService();
+//
 const x: any = 9;
-const y: any = '9';
-let result = sampleService.sum(x, y);
-console.log(result);
+const y: any = new Date();
 
-result = sampleService.multiply(2, 3);
-console.log(result);
+// TypedConfig.set({
+//     enable: false,
+//     throwError: true,
+//     checkArgumentLength: true,.env
+// });
 
-const arg1: any = 2;
-const arg2: any = 3;
-console.time('test_clean');
-result = sampleService.multiply(arg1, arg2);    // as usual
-console.timeEnd('test_clean'); // 0.079ms
-console.time('test_checked');
-result = sampleService.multiplyChecked(arg1, arg2);    // checked with standard arguments
-console.timeEnd('test_checked');    // 0.298ms
-console.time('test_checked');
-result = sampleService.multiplyChecked(arg1, arg2);    // checked with standard arguments
-console.timeEnd('test_checked');    // 0.298ms
-console.log(result);
+// TypedConfig.ExcludeDecorator(Typed);
+// Typed.prototype = function() {
+//     // tslint:disable-next-line:ban-types
+//     return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
+//         console.log('test rem')
+//         return descriptor.value.apply(this, arguments);
+//     };
+// };
 
-const a: any = 1;
-const b: any = '2';
-result = sampleService.multiply(a, b);
+let result = sampleService.funcDateTyped(x, new Date());
+// result = sampleService.funcDateTyped(1, new Date());
+// result = sampleService.multiplyChecked(x, y);
+// console.log(result);
 
-const arg3: any = 'test';
-const arg4: any = 'test';
-result = sampleService.multiply(arg3, arg4);
 
-console.log(result);
+// let result = sampleService.sum(x, y);
+// console.log(result);
+//
+// result = sampleService.multiply(2, 3);
+// console.log(result);
+//
+// const arg1: any = 2;
+// const arg2: any = 3;
+// console.time('test_clean');
+// result = sampleService.multiply(arg1, arg2);    // as usual
+// console.timeEnd('test_clean'); // 0.079ms
+// console.time('test_checked');
+// result = sampleService.multiplyChecked(arg1, arg2);    // checked with standard arguments
+// console.timeEnd('test_checked');    // 0.298ms
+// console.time('test_checked');
+// result = sampleService.multiplyChecked(arg1, arg2);    // checked with standard arguments
+// console.timeEnd('test_checked');    // 0.298ms
+// console.log(result);
+//
+// const a: any = 1;
+// const b: any = '2';
+// result = sampleService.multiply(a, b);
+//
+// const arg3: any = 'test';
+// const arg4: any = 'test';
+// result = sampleService.multiply(arg3, arg4);
+//
+// console.log(result);
 
 //
 // const arg5: any = {

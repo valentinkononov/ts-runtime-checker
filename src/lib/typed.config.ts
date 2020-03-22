@@ -38,4 +38,14 @@ export class TypedConfig {
             default: return Boolean(value);
         }
     }
+
+    public static ExcludeDecorator(decorator: Function) {
+        decorator = function() {
+            // tslint:disable-next-line:ban-types
+            return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
+                console.log('test rem');
+                return descriptor.value.apply(this, arguments);
+            };
+        };
+    }
 }
