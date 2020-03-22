@@ -18,16 +18,18 @@ describe('typed-dates', () => {
     describe('date without decorator', () => {
         it('should return 2 as getDate', () => {
             const date = new Date();
-            expect(sampleService.funcDate(2, date).getDate())
-                .toStrictEqual(2);
+            expect(
+                sampleService.funcDate(2, date).getDate()
+            ).toStrictEqual(2);
         });
     });
 
     describe('date with decorator, correct arguments', () => {
         it('should return 2 as getDate', () => {
             const date = new Date();
-            expect(sampleService.funcDateTyped(2, date).getDate())
-                .toStrictEqual(2);
+            expect(
+                sampleService.funcDateTyped(2, date).getDate()
+            ).toStrictEqual(2);
         });
     });
 

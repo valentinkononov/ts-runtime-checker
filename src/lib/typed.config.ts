@@ -8,9 +8,21 @@ export interface TypedOptions {
     checkArgumentLength: boolean;
 }
 
+/**
+ * Defines how @Typed decorator is configured, turned on or off, and other behavior
+ * */
 export class TypedConfig {
 
-    private static getDefaultOptions(): TypedOptions {
+    /**
+     * Read settings from process.env and generate default settings.
+     * Default is: {
+     *     enable: true,
+     *     throwError: true,
+     *     checkArgumentLength: true,
+     * }
+     * */
+    private static getInitialOptions(): TypedOptions {
+        // console.log('[TypedConfig]: TYPED = ' + process.env.TYPED);
         let envSetting: boolean = true;
         if (process.env.TYPED && TypedConfig.parseBoolean(process.env.TYPED) === false) {
             envSetting = false;
@@ -21,8 +33,23 @@ export class TypedConfig {
             checkArgumentLength: true,
         }
     }
-    private static options: TypedOptions = TypedConfig.getDefaultOptions();
 
+    private static options: TypedOptions = TypedConfig.getInitialOptions();
+
+    /**
+     * Set initial configuration, read settings from process.env
+     * */
+    public static reset() {
+        this.options = TypedConfig.getInitialOptions();
+    }
+
+    /**
+     * Override configuration of Typed decorator
+     * Set:
+     *      - enable: true or false. It defines should it work or npt
+     *      - throwError: true or false. It defines how it should work, log error or throw it
+     *      - checkArgumentLength: true or false. It defines should decorator check length of arguments
+     * */
     public static set(options: TypedOptions) {
         this.options = options;
     }
