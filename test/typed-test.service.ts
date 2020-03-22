@@ -62,6 +62,10 @@ export class TypedTestService {
         return result;
     }
 
+    public funcArrayNum(numArray: number[]): number[] {
+        return numArray.filter(x => x > 0);
+    }
+
     @Typed()
     public funcArrayNumTyped(numArray: number[]): number[] {
         return numArray.filter(x => x > 0);
