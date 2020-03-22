@@ -1,5 +1,5 @@
 import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from "../src/lib/typed.config";
+import {TypedConfig} from '../src/lib/typed.config';
 
 describe('typed-arrays-num', () => {
 
@@ -20,7 +20,7 @@ describe('typed-arrays-num', () => {
             const argArray: number[] = [0, 1, 2, 0, 3, 4];
             const expected: number[] = [1, 2, 3, 4];
             expect(
-                sampleService.funcArrayNum(argArray)
+                sampleService.funcArrayNum(argArray),
             ).toStrictEqual(expected);
         });
     });
@@ -30,7 +30,7 @@ describe('typed-arrays-num', () => {
             const argArray: number[] = [0, 1, 2, 0, 3, 4];
             const expected: number[] = [1, 2, 3, 4];
             expect(
-                sampleService.funcArrayNumTyped(argArray)
+                sampleService.funcArrayNumTyped(argArray),
             ).toStrictEqual(expected);
         });
     });

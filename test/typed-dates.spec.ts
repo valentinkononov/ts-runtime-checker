@@ -1,5 +1,5 @@
 import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from "../src/lib/typed.config";
+import {TypedConfig} from '../src/lib/typed.config';
 
 describe('typed-dates', () => {
 
@@ -19,7 +19,7 @@ describe('typed-dates', () => {
         it('should return 2 as getDate', () => {
             const date = new Date();
             expect(
-                sampleService.funcDate(2, date).getDate()
+                sampleService.funcDate(2, date).getDate(),
             ).toStrictEqual(2);
         });
     });
@@ -28,7 +28,7 @@ describe('typed-dates', () => {
         it('should return 2 as getDate', () => {
             const date = new Date();
             expect(
-                sampleService.funcDateTyped(2, date).getDate()
+                sampleService.funcDateTyped(2, date).getDate(),
             ).toStrictEqual(2);
         });
     });

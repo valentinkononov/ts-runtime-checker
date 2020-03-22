@@ -1,14 +1,5 @@
 import { Typed } from '../src';
-
-export class SomeClass {
-    id: number;
-    text: string;
-}
-
-export interface SomeInterface {
-    id: number;
-    text: string;
-}
+import {SomeClass, SomeInterface} from './typed-test.entities';
 
 export class TypedTestService {
     public multiply(num: number, num2: number): number {

@@ -23,7 +23,7 @@ describe('config', () => {
             });
             const testArg: any = 'bad';
             expect(
-                sampleService.funcNumberTyped(2, testArg)
+                sampleService.funcNumberTyped(2, testArg),
             ).toStrictEqual(NaN);
         });
     });
@@ -37,7 +37,7 @@ describe('config', () => {
             });
             const testArg: any = 'bad';
             expect(() => {
-                sampleService.funcNumberTyped(2, testArg)
+                sampleService.funcNumberTyped(2, testArg);
             }).toThrow();
         });
     });
@@ -51,7 +51,7 @@ describe('config', () => {
             });
             const testArg: any = 'bad';
             expect(
-                sampleService.funcNumberTyped(2, testArg)
+                sampleService.funcNumberTyped(2, testArg),
             ).toStrictEqual(NaN);
         });
     });
