@@ -72,7 +72,7 @@ export function Typed(config?: TypedOptions) {
                 } else if (paramTypes[i] instanceof Function) {
                     expectedType = typeof paramTypes[i]();
                 }
-                console.log('[TEST]', actualType, expectedType);
+                //console.log('[TEST]', actualType, expectedType);
                 if (actualType !== expectedType) {
                     const errorMessage = `Argument: ${arguments[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
                     if (options.throwError) {
