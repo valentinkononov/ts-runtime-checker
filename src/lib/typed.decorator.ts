@@ -7,20 +7,24 @@ import { TypedConfig, TypedOptions } from './typed.config';
 
 // Related: https://github.com/microsoft/TypeScript/issues/7169
 // http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4
+// check how JEST verifies type equality. toStrictEqual
 
 // DONE: arrays checks
 // DONE: Dates checks
 // DONE: more tests
-// TODO: string checks
+// DONE: string checks
+// DONE: add Boolean checks
 // TODO: Bigint checks
 // TODO: Optional arguments checks
+// TODO: Tests for conditional types
 // TODO: move all checks into separate functions
 // TODO: remove console logs
-// TODO: add Boolean checks
 // TODO: check return type by 'design:returntype'
+// TODO: research about checks everywhere
+// TODO: add release notes, correct readme
 
-const DATE_TYPE: string = 'Date';
-const ARRAY_TYPE: string = 'Array';
+// const DATE_TYPE: string = 'Date';
+// const ARRAY_TYPE: string = 'Array';
 
 /***
  * Typed decorator checks function arguments amount and types in runtime
@@ -41,6 +45,10 @@ export function Typed(config?: TypedOptions) {
 
             // each element in paramTypes has: name, isArray, prototype, from, of
             // console.log(Object.getOwnPropertyNames(paramTypes[0]));
+            // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype));
+            // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype.constructor));
+            // console.log(paramTypes[0].name);
+            // console.log(paramTypes[0].prototype.name);
 
             if (options.checkArgumentLength) {
                 // 1 check length of arguments and parameters
@@ -63,25 +71,30 @@ export function Typed(config?: TypedOptions) {
                 }
 
                 let actualType = (typeof arguments[i]).toString();
-                if (arguments[i] instanceof Date) {
-                    actualType = DATE_TYPE;
+                if (arguments[i].constructor) {
+                    actualType = arguments[i].constructor.name;
+                    // console.log('[CONSTRUCTOR]: ' + actualType);
                 }
+                // if (arguments[i] instanceof Date) {
+                //     actualType = DATE_TYPE;
+                // }
+                //
+                // if (arguments[i] instanceof Array) {
+                //     actualType = ARRAY_TYPE;
+                // }
 
-                if (arguments[i] instanceof Array) {
-                    actualType = ARRAY_TYPE;
-                }
+                const expectedType: string = paramTypes[i].name;
 
-                let expectedType: string = paramTypes[i].name;
-
-                if (expectedType === DATE_TYPE) {
-                    // do nothing
-                } else if (expectedType === ARRAY_TYPE) {
-                    // console.log(arguments[i].length);
-                    // console.log(typeof arguments[i][0]);
-
-                } else if (paramTypes[i] instanceof Function) {
-                    expectedType = typeof paramTypes[i]();
-                }
+                // if (expectedType === DATE_TYPE) {
+                //     // do nothing
+                // } else if (expectedType === ARRAY_TYPE) {
+                //     // console.log(arguments[i].length);
+                //     // console.log(typeof arguments[i][0]);
+                //
+                // } else if (paramTypes[i] instanceof Function) {
+                //     // TODO: verify
+                //     // expectedType = typeof paramTypes[i]();
+                // }
                 // console.log('[TEST]', actualType, expectedType);
                 if (actualType !== expectedType) {
                     const errorMessage = `Argument: ${arguments[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
