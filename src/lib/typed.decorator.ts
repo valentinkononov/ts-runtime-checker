@@ -16,15 +16,15 @@ import { TypedConfig, TypedOptions } from './typed.config';
 // DONE: add Boolean checks
 // TODO: Bigint checks
 // TODO: Optional arguments checks
-// TODO: Tests for conditional types
-// TODO: move all checks into separate functions
+// DONE: Tests for conditional types
+// DONE: move all checks into separate functions
 // TODO: remove console logs
-// TODO: check return type by 'design:returntype'
+// TODO: re-write logOrThrow to initiate kind of logger, depending on options
+// DONE: check return type by 'design:returntype'
+// DONE: decorator for class ??
 // TODO: research about checks everywhere
 // TODO: add release notes, correct readme
-
-// const DATE_TYPE: string = 'Date';
-// const ARRAY_TYPE: string = 'Array';
+// TODO: tests for any
 
 /***
  * Typed decorator checks function arguments amount and types in runtime
@@ -32,6 +32,105 @@ import { TypedConfig, TypedOptions } from './typed.config';
  * */
 // tslint:disable-next-line:ban-types
 export function Typed(config?: TypedOptions) {
+
+    /*
+    * Log error or throw error depending on options settings
+    * */
+    const logOrThrow = (message: string, options: TypedOptions) => {
+        if (options.throwError) {
+            throw new Error(message);
+        } else {
+            // tslint:disable-next-line:no-console
+            console.log(message);
+        }
+    };
+
+    const logParamsInfo = (paramTypes: any[]) => {
+        // each element in paramTypes has: name, isArray, prototype, from, of
+        // console.log(Object.getOwnPropertyNames(paramTypes[0]));
+        // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype));
+        // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype.constructor));
+        // console.log(paramTypes[0].name);
+        // console.log(paramTypes[0].prototype.name);
+    };
+
+    /*
+    * Identifies actual type of object by using typeof and than checking constructor name
+    * */
+    const getActualType = (value: any) => {
+        let actualType = (typeof value).toString();
+        if (value.constructor) {
+            actualType = value.constructor.name;
+        }
+        return actualType;
+    };
+
+    /*
+    * Check that return type from metadata is the same as actual return type
+    * */
+    // tslint:disable-next-line:ban-types
+    const checkReturnType = (target: Object, propertyName: string, result: any, options: TypedOptions) => {
+        const returnType = Reflect.getMetadata('design:returntype', target, propertyName);
+        if (returnType !== undefined && returnType !== null && result !== undefined && result !== null) {
+            const expectedReturnType = returnType.name;
+            const actualReturnType = getActualType(result);
+            // console.log(`[TEST-RETURN]: ${expectedReturnType}, ${actualReturnType}`);
+            if (actualReturnType !== expectedReturnType) {
+                const errorMessage = `Function ${propertyName} return type: ${actualReturnType} is different from expected return type: ${expectedReturnType}.`;
+                logOrThrow(errorMessage, options);
+            }
+        }
+    };
+
+    /*
+    * Read parameters and types from reflect-metadata
+    * */
+    // tslint:disable-next-line:ban-types
+    const getParamsMetadata = (target: Object, propertyName: string) => {
+        const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyName);
+        logParamsInfo(paramTypes);
+        return paramTypes;
+    };
+
+    /*
+    * Check that length of expected arguments from metadata is equal to length of actual arguments in runtime
+    * */
+    const checkArgumentsLength = (paramTypes: any[], options: TypedOptions, args: any) => {
+        if (options.checkArgumentLength) {
+            // 1 check length of arguments and parameters
+            if (args.length !== paramTypes.length) {
+                const errorMessage = `Parameters length: ${paramTypes.length} is different from arguments length: ${args.length}`;
+                logOrThrow(errorMessage, options);
+            }
+        }
+    };
+
+    /*
+    * check types of arguments and parameters in metadata, should be equal
+    * */
+    const checkArguments = (paramTypes: any[], options: TypedOptions, args: any) => {
+        for (let i = 0; i < args.length; i++) {
+            // if we have more than expected number of arguments
+            if (i >= paramTypes.length) {
+                break;
+            }
+
+            const actualType = getActualType(args[i]);
+            const expectedType: string = paramTypes[i].name;
+
+            // } else if (paramTypes[i] instanceof Function) {
+            //     // TODO: verify
+            //     // expectedType = typeof paramTypes[i]();
+            // }
+
+            // console.log('[TEST]', actualType, expectedType);
+            if (actualType !== expectedType) {
+                const errorMessage = `Argument: ${args[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
+                logOrThrow(errorMessage, options);
+            }
+        }
+    };
+
     // tslint:disable-next-line:ban-types
     return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
         const method = descriptor.value;
@@ -41,73 +140,14 @@ export function Typed(config?: TypedOptions) {
                 return method.apply(this, arguments);
             }
 
-            const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyName);
+            const paramTypes = getParamsMetadata(target, propertyName);
+            checkArgumentsLength(paramTypes, options, arguments);
+            checkArguments(paramTypes, options, arguments);
 
-            // each element in paramTypes has: name, isArray, prototype, from, of
-            // console.log(Object.getOwnPropertyNames(paramTypes[0]));
-            // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype));
-            // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype.constructor));
-            // console.log(paramTypes[0].name);
-            // console.log(paramTypes[0].prototype.name);
-
-            if (options.checkArgumentLength) {
-                // 1 check length of arguments and parameters
-                if (arguments.length !== paramTypes.length) {
-                    const errorMessage = `Parameters length: ${paramTypes.length} is different from arguments length: ${arguments.length}`;
-                    if (options.throwError) {
-                        throw new Error(errorMessage);
-                    } else {
-                        // tslint:disable-next-line:no-console
-                        console.log(errorMessage);
-                    }
-                }
-            }
-
-            // 2 check types of arguments and parameters, should be equal
-            for (let i = 0; i < arguments.length; i++) {
-                // if we have more than expected number of arguments
-                if (i >= paramTypes.length) {
-                    break;
-                }
-
-                let actualType = (typeof arguments[i]).toString();
-                if (arguments[i].constructor) {
-                    actualType = arguments[i].constructor.name;
-                    // console.log('[CONSTRUCTOR]: ' + actualType);
-                }
-                // if (arguments[i] instanceof Date) {
-                //     actualType = DATE_TYPE;
-                // }
-                //
-                // if (arguments[i] instanceof Array) {
-                //     actualType = ARRAY_TYPE;
-                // }
-
-                const expectedType: string = paramTypes[i].name;
-
-                // if (expectedType === DATE_TYPE) {
-                //     // do nothing
-                // } else if (expectedType === ARRAY_TYPE) {
-                //     // console.log(arguments[i].length);
-                //     // console.log(typeof arguments[i][0]);
-                //
-                // } else if (paramTypes[i] instanceof Function) {
-                //     // TODO: verify
-                //     // expectedType = typeof paramTypes[i]();
-                // }
-                // console.log('[TEST]', actualType, expectedType);
-                if (actualType !== expectedType) {
-                    const errorMessage = `Argument: ${arguments[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
-                    if (options.throwError) {
-                        throw new Error(errorMessage);
-                    } else {
-                        // tslint:disable-next-line:no-console
-                        console.log(errorMessage);
-                    }
-                }
-            }
-
-            return method.apply(this, arguments);
+            const result = method.apply(this, arguments);
+            checkReturnType(target, propertyName, result, options);
+            return result;
         };
     };
+
 }

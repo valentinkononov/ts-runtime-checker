@@ -2,9 +2,11 @@ import { TypedTestService } from './typed-test.service';
 import {TypedConfig, TypedOptions} from '../src/lib/typed.config';
 import {Typed} from '../src';
 import {SomeClass} from './typed-test.entities';
+import {TypedReturnTest} from './typed-return-test.service';
 
 console.log('Start');
 const sampleService = new TypedTestService();
+const sampleReturnService = new TypedReturnTest();
 //
 const x: any = 9;
 const value = new SomeClass();
@@ -31,6 +33,8 @@ const y: any = new Date();
 // result = sampleService.funcDateTyped(1, new Date());
 // result = sampleService.multiplyChecked(x, y);
 // console.log(result);
+
+sampleReturnService.getClassCorrect();
 
 // let result = sampleService.sum(x, y);
 // console.log(result);

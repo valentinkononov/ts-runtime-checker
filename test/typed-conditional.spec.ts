@@ -1,7 +1,7 @@
 import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from '../src/lib/typed.config';
+import {TypedConfig} from '../src';
 
-describe('typed-string', () => {
+describe('typed-conditional', () => {
 
     let sampleService: TypedTestService;
 

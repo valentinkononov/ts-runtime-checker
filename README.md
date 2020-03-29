@@ -19,6 +19,7 @@ Current version supports checking primitive types (String, Number) and Objects f
  * [Mission](#mission)
  * [Installation](#installation)
  * [Usage](#usage)
+ * [Config](#config)
  * [Motivation](#motivation)
  * [Performance Overhead](#performance-overhead)
  * [Plans](#plans)
@@ -47,6 +48,8 @@ This will allow to rely on the code more, even when you write library which will
 In current version there is `@Typed()` decorator, applicable for functions. Just apply it to your function as first decorator in the sequence
 
 ```typescript
+    import {Typed} from 'ts-stronger-types';
+
     @Typed()
     public multiplyChecked(num: number, num2: number): number {
         return  num * num2;
@@ -55,10 +58,10 @@ In current version there is `@Typed()` decorator, applicable for functions. Just
 
 As result, you will keep types checking NOT only during code compilation, but in Runtime as well.
 
-Successful usage is not different from regular cases, function is just executed and result is returned.
+In case of correct runtime values, function is just executed and result is returned.
 
-Unsuccessful case (when passed parameters have unexpected types) will end up with Exception (Error) or log entry if configured.
-You can emulate through `any` in test scenario:
+But when passed arguments have unexpected types, execution will end up with Exception (Error) or log entry if configured.
+You can emulate this incorrect behavior through `any` in test scenario:
 
 ```typescript
     const value: any = { v: 3};
@@ -66,21 +69,91 @@ You can emulate through `any` in test scenario:
     // Error: Argument: [object Object] has type: object different from expected type: number 
 ```
 
-If for some reason you don't want to catch all these errors, but still would like to see potential issues, use this configuration
+In this case no error will be thrown, but console.log will push message.
+
+# Config
+
+There is configuration which can turn on / off features of the library. 
+
+### What can be configured:
 
 ```typescript
-    @Typed({throwError: false})
+export interface TypedOptions {
+    enable: boolean;
+    throwError: boolean;
+    checkArgumentLength: boolean;
+}
+```
+
+ - enable / disable all checks
+ - enable / disable throwing errors
+ - enable / disable checks of argument length
+
+Default - all is true
+
+You can use one of the following options to configure:
+
+### Per Function
+
+```typescript
+    import {Typed} from 'ts-stronger-types';
+
+    @Typed({throwError: false, checkArgumentLength: false})
     public multiplyChecked(num: number, num2: number): number {
         return  num * num2;
     }
 ```
 
-In this case no error will be thrown, but console.log will push message.
+This setting has the biggest priority.
+
+### During Application Startup
+
+```typescript
+    import {TypedConfig} from 'ts-stronger-types';
+
+    TypedConfig.set({
+            enable: true,
+            throwError: true,
+            checkArgumentLength: true,
+        });
+```
+
+This setting has the second priority.
+
+### With Environment Variables
+
+You can turn on / off the whole feature using environment variable `TYPED`.
+Config tries to read and parse value from 'process.env.TYPED', it can have value like 'true', 'yes' or 1 for enabling and 'false', 'no' or 0 for disabling.
+For example, your `.env` file can have: `TYPED = false`
 
 ## Motivation
 
 The main motivation is to have system which behaves more like strong type language, but can function in Javascript ecosystem.
 I described it in more details in the article at [kononov.space](http://www.kononov.space/runtime_type_checks_in_ts_js/). In russian at the moment, translation will be soon. 
+
+## What is checked?
+
+#### Checks in Code of decorator:
+
+ - arguments length
+ - type of each argument (should be equal to type of parameter in reflect-metadata)
+ - type of return value (should be equal to return type in reflect-metadata)
+
+#### What Types we can verify?
+ 
+ - number
+ - string
+ - date
+ - boolean
+ - array
+ - class
+
+#### What Types we CANNOT verify?
+
+Due to current limitations of Typescript / Javascript we cannot verify in runtime following types:
+
+ - interfaces. Each interface doesn't have prototype and it's name is undefined in runtime. 
+ - type of array members. This is due to lack of reflect-metadata for arrays in Typescript. Potentially it can be done in future if TS team bring needed metadata
 
 ## Performance Overhead
 
@@ -109,9 +182,10 @@ Second Run
 ## Release Notes
 
  - 0.0.4 - initial code, documentation, tests and `@Typed()` decorator itself.
+ - 0.1.0 - verification of classes, arrays, return types, code refactoring, 64 tests added, settings
 
 ## Plans
-
+s
 I'm thinking about following potential features:
 
  - Add ability to use this decorator for class itself, not just for particular function
