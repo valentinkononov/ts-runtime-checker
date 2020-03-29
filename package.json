@@ -1,6 +1,6 @@
 {
   "name": "ts-stronger-types",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Runtime checking of types and integrity for Typescript projects",
   "repository": "https://github.com/valentinkononov/ts-runtime-checker",
   "issues": "https://github.com/valentinkononov/ts-runtime-checker/issues",
@@ -8,7 +8,10 @@
   "keywords": [
     "typescript",
     "runtime",
-    "decorator"
+    "decorator",
+    "type",
+    "check",
+    "strong"
   ],
   "license": "MIT",
   "files": [

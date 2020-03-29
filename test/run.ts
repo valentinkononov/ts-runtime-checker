@@ -1,12 +1,14 @@
 import { TypedTestService } from './typed-test.service';
 import {TypedConfig, TypedOptions} from '../src/lib/typed.config';
 import {Typed} from '../src';
+import {SomeClass} from './typed-test.entities';
 
 console.log('Start');
 const sampleService = new TypedTestService();
 //
 const x: any = 9;
-const value: any = ['str'];
+const value = new SomeClass();
+value.id = 1;
 const y: any = new Date();
 
 // TypedConfig.set({
@@ -25,7 +27,7 @@ const y: any = new Date();
 // };
 
 // let result = sampleService.funcDateTyped(x, new Date());
-const result = sampleService.funcArrayNumTyped(value);
+// const result = sampleService.funcConditionalTyped('22');
 // result = sampleService.funcDateTyped(1, new Date());
 // result = sampleService.multiplyChecked(x, y);
 // console.log(result);

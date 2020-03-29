@@ -6,11 +6,6 @@ export class TypedTestService {
         return  num * num2;
     }
 
-    public funcDate(num: number, date: Date): Date {
-        date.setDate(num);
-        return date;
-    }
-
     public sum(num: number, num2: number): number {
         return  num + num2;
     }
@@ -30,10 +25,56 @@ export class TypedTestService {
         return  num * num2;
     }
 
+    public funcDate(num: number, date: Date): Date {
+        date.setDate(num);
+        return date;
+    }
+
     @Typed()
     public funcDateTyped(num: number, date: Date): Date {
         date.setDate(num);
         return date;
+    }
+
+    public funcBoolean(num: number, shouldIncrement: boolean): number {
+        if (shouldIncrement === true) {
+            return num + 1;
+        } else {
+            return num - 1;
+        }
+    }
+
+    @Typed()
+    public funcBooleanTyped(num: number, shouldIncrement: boolean): number {
+        if (shouldIncrement === true) {
+            return num + 1;
+        } else {
+            return num - 1;
+        }
+    }
+
+    public funcString(src: string, count: number): string {
+        let result: string = '';
+        for (let i = 0; i < count; i++) {
+            result += src;
+        }
+        return result;
+    }
+
+    @Typed()
+    public funcStringTyped(src: string, count: number): string {
+        let result: string = '';
+        for (let i = 0; i < count; i++) {
+            result += src;
+        }
+        return result;
+    }
+
+    public funcClass(arg1: SomeClass): SomeClass {
+        const result = new SomeClass();
+        result.id = arg1.id;
+        result.text = arg1.text + ' copy';
+        return result;
     }
 
     @Typed()
@@ -51,6 +92,15 @@ export class TypedTestService {
             text: arg1.text + ' copy',
         };
         return result;
+    }
+
+    public funcConditional(arg1: number | string): string {
+        return arg1.toString() + arg1.toString();
+    }
+
+    @Typed()
+    public funcConditionalTyped(arg1: number | string): string {
+        return arg1.toString() + arg1.toString();
     }
 
     public funcArrayNum(numArray: number[]): number[] {
