@@ -1,13 +1,15 @@
 # ts-stronger-types
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/ts-stronger-types" target="blank"><img src="https://github.com/valentinkononov/ts-runtime-checker/raw/master/images/strong-logo-web.jpeg" width="120" alt="TS Stronger Types" /></a>
+</p>
+
 [![Build Status](https://travis-ci.org/valentinkononov/ts-runtime-checker.svg?branch=master)](https://travis-ci.org/valentinkononov/ts-runtime-checker)
 [![codecov](https://codecov.io/gh/valentinkononov/ts-runtime-checker/branch/master/graph/badge.svg)](https://codecov.io/gh/valentinkononov/ts-runtime-checker)
 ![npm](https://img.shields.io/npm/v/ts-stronger-types)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/ts-stronger-types?label=bundle-size)
 ![npm](https://img.shields.io/npm/dm/ts-stronger-types)
 ![NPM](https://img.shields.io/npm/l/ts-stronger-types)
-
-![](images/strong-logo-web.jpeg)
 
 Allows to emulate *stronger* types for Typescript in runtime by adding checks for actual type.
 With it you can rely on your Typescript code more in most cases.
