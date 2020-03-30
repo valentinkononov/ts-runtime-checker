@@ -7,7 +7,7 @@
 ![npm](https://img.shields.io/npm/dm/ts-stronger-types)
 ![NPM](https://img.shields.io/npm/l/ts-stronger-types)
 
-![](images/strong-logo.jpeg)
+![](images/strong-logo-web.jpeg)
 
 Allows to emulate *stronger* types for Typescript in runtime by adding checks for actual type.
 With it you can rely on your Typescript code more in most cases.
