@@ -55,4 +55,21 @@ describe('config', () => {
             ).toStrictEqual(NaN);
         });
     });
+
+    describe('custom logger', () => {
+        it('should call custom logger', () => {
+            const customLogger = jest.fn();
+            TypedConfig.set({
+                enable: true,
+                throwError: false,
+                checkArgumentLength: true,
+                customLogger,
+            });
+            const testArg: any = 'bad';
+            expect(
+                sampleService.funcNumberTyped(2, testArg),
+            ).toStrictEqual(NaN);
+            expect(customLogger).toHaveBeenCalled();
+        });
+    });
 });

@@ -6,6 +6,7 @@ export interface TypedOptions {
     enable: boolean;
     throwError: boolean;
     checkArgumentLength: boolean;
+    customLogger?: (message: string) => void;
 }
 
 /**

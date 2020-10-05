@@ -40,6 +40,9 @@ export function Typed(config?: TypedOptions) {
         if (options.throwError) {
             throw new Error(message);
         } else {
+            if (options.customLogger) {
+                return options.customLogger(message);
+            }
             // tslint:disable-next-line:no-console
             console.log(message);
         }
