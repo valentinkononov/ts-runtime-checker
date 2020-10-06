@@ -95,11 +95,12 @@ export function Typed(config?: TypedOptions) {
     /*
     * Check that length of expected arguments from metadata is equal to length of actual arguments in runtime
     * */
-    const checkArgumentsLength = (paramTypes: any[], options: TypedOptions, args: any) => {
+    // tslint:disable-next-line:ban-types
+    const checkArgumentsLength = (target: Object, propertyName: string, paramTypes: any[], options: TypedOptions, args: any) => {
         if (options.checkArgumentLength) {
             // 1 check length of arguments and parameters
             if (args.length !== paramTypes.length) {
-                const errorMessage = `Parameters length: ${paramTypes.length} is different from arguments length: ${args.length}`;
+                const errorMessage = `Parameters length in function ${propertyName} of class ${target.constructor.name}: ${paramTypes.length} is different from arguments length: ${args.length}`;
                 logOrThrow(errorMessage, options);
             }
         }
@@ -108,7 +109,8 @@ export function Typed(config?: TypedOptions) {
     /*
     * check types of arguments and parameters in metadata, should be equal
     * */
-    const checkArguments = (paramTypes: any[], options: TypedOptions, args: any) => {
+    // tslint:disable-next-line:ban-types
+    const checkArguments = (target: Object, propertyName: string, paramTypes: any[], options: TypedOptions, args: any) => {
         for (let i = 0; i < args.length; i++) {
             // if we have more than expected number of arguments
             if (i >= paramTypes.length) {
@@ -125,7 +127,7 @@ export function Typed(config?: TypedOptions) {
 
             // console.log('[TEST]', actualType, expectedType);
             if (actualType !== expectedType) {
-                const errorMessage = `Argument: ${args[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
+                const errorMessage = `Argument in function ${propertyName} of class ${target.constructor.name}: ${args[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
                 logOrThrow(errorMessage, options);
             }
         }
@@ -139,10 +141,9 @@ export function Typed(config?: TypedOptions) {
             if (!options.enable) {
                 return method.apply(this, arguments);
             }
-
             const paramTypes = getParamsMetadata(target, propertyName);
-            checkArgumentsLength(paramTypes, options, arguments);
-            checkArguments(paramTypes, options, arguments);
+            checkArgumentsLength(target, propertyName, paramTypes, options, arguments);
+            checkArguments(target, propertyName, paramTypes, options, arguments);
 
             const result = method.apply(this, arguments);
             checkReturnType(target, propertyName, result, options);
