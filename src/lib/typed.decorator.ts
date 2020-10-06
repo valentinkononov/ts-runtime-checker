@@ -76,7 +76,7 @@ export function Typed(config?: TypedOptions) {
             const actualReturnType = getActualType(result);
             // console.log(`[TEST-RETURN]: ${expectedReturnType}, ${actualReturnType}`);
             if (actualReturnType !== expectedReturnType) {
-                const errorMessage = `Function ${propertyName} return type: ${actualReturnType} is different from expected return type: ${expectedReturnType}.`;
+                const errorMessage = `Function ${propertyName} of class ${target.constructor.name} return type: ${actualReturnType} is different from expected return type: ${expectedReturnType}.`;
                 logOrThrow(errorMessage, options);
             }
         }
