@@ -19,15 +19,6 @@ value.id = 1;
 //     checkArgumentLength: true,.env
 // });
 
-// TypedConfig.ExcludeDecorator(Typed);
-// Typed.prototype = function() {
-//     // tslint:disable-next-line:ban-types
-//     return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
-//         console.log('test rem')
-//         return descriptor.value.apply(this, arguments);
-//     };
-// };
-
 // let result = sampleService.funcDateTyped(x, new Date());
 // const result = sampleService.funcConditionalTyped('22');
 // result = sampleService.funcDateTyped(1, new Date());

@@ -30,36 +30,38 @@ import { TypedConfig, TypedOptions } from './typed.config';
  * Typed decorator checks function arguments amount and types in runtime
  * In case if caller used incorrect types in runtime, Error will be thrown
  * */
-// tslint:disable-next-line:ban-types
-export function Typed(config?: TypedOptions) {
+export function Typed(
+    config?: TypedOptions,
+): // eslint-disable-next-line @typescript-eslint/ban-types
+(target: unknown, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => void {
     /*
      * Log error or throw error depending on options settings
      * */
-    const logOrThrow = (message: string, options: TypedOptions) => {
+    const logOrThrow = (message: string, options: TypedOptions): void => {
         if (options.throwError) {
             throw new Error(message);
+        } else if (options.customLogger) {
+            options.customLogger(message);
         } else {
-            if (options.customLogger) {
-                return options.customLogger(message);
-            }
             // tslint:disable-next-line:no-console
             console.log(message);
         }
     };
 
+    // eslint-disable-next-line
     const logParamsInfo = (paramTypes: any[]) => {
         // each element in paramTypes has: name, isArray, prototype, from, of
-        // console.log(Object.getOwnPropertyNames(paramTypes[0]));
-        // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype));
-        // console.log(Object.getOwnPropertyNames(paramTypes[0].prototype.constructor));
-        // console.log(paramTypes[0].name);
-        // console.log(paramTypes[0].prototype.name);
+        console.debug(Object.getOwnPropertyNames(paramTypes[0]));
+        console.debug(Object.getOwnPropertyNames(paramTypes[0].prototype));
+        console.debug(Object.getOwnPropertyNames(paramTypes[0].prototype.constructor));
+        console.debug(paramTypes[0].name);
+        console.debug(paramTypes[0].prototype.name);
     };
 
     /*
      * Identifies actual type of object by using typeof and than checking constructor name
      * */
-    const getActualType = (value: any) => {
+    const getActualType = (value: unknown): string => {
         let actualType = (typeof value).toString();
         if (value.constructor) {
             actualType = value.constructor.name;
@@ -70,8 +72,8 @@ export function Typed(config?: TypedOptions) {
     /*
      * Check that return type from metadata is the same as actual return type
      * */
-    // tslint:disable-next-line:ban-types
-    const checkReturnType = (target: Object, propertyName: string, result: any, options: TypedOptions) => {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const checkReturnType = (target: unknown, propertyName: string, result: unknown, options: TypedOptions): void => {
         const returnType = Reflect.getMetadata('design:returntype', target, propertyName);
         if (returnType !== undefined && returnType !== null && result !== undefined && result !== null) {
             const expectedReturnType = returnType.name;
@@ -87,24 +89,25 @@ export function Typed(config?: TypedOptions) {
     /*
      * Read parameters and types from reflect-metadata
      * */
-    // tslint:disable-next-line:ban-types
-    const getParamsMetadata = (target: Object, propertyName: string) => {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const getParamsMetadata = (target: unknown, propertyName: string): unknown[] => {
         const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyName);
-        logParamsInfo(paramTypes);
+        // logParamsInfo(paramTypes);
         return paramTypes;
     };
 
     /*
      * Check that length of expected arguments from metadata is equal to length of actual arguments in runtime
      * */
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     const checkArgumentsLength = (
-        target: Object,
+        target: unknown,
         propertyName: string,
-        paramTypes: any[],
+        paramTypes: unknown[],
         options: TypedOptions,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         args: any,
-    ) => {
+    ): void => {
         if (options.checkArgumentLength) {
             // 1 check length of arguments and parameters
             if (args.length !== paramTypes.length) {
@@ -117,14 +120,15 @@ export function Typed(config?: TypedOptions) {
     /*
      * check types of arguments and parameters in metadata, should be equal
      * */
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     const checkArguments = (
-        target: Object,
+        target: unknown,
         propertyName: string,
-        paramTypes: any[],
+        paramTypes: unknown[],
         options: TypedOptions,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         args: any,
-    ) => {
+    ): void => {
         for (let i = 0; i < args.length; i++) {
             // if we have more than expected number of arguments
             if (i >= paramTypes.length) {
@@ -132,7 +136,7 @@ export function Typed(config?: TypedOptions) {
             }
 
             const actualType = getActualType(args[i]);
-            const expectedType: string = paramTypes[i].name;
+            const expectedType: string = (paramTypes[i] as { name: string }).name;
 
             // } else if (paramTypes[i] instanceof Function) {
             //     // TODO: verify
@@ -147,8 +151,8 @@ export function Typed(config?: TypedOptions) {
         }
     };
 
-    // tslint:disable-next-line:ban-types
-    return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    return (target: unknown, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
         const method = descriptor.value;
         descriptor.value = function () {
             const options: TypedOptions = config || TypedConfig.get();
