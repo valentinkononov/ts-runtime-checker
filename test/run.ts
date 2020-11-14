@@ -1,17 +1,17 @@
 import { TypedTestService } from './typed-test.service';
-import {TypedConfig, TypedOptions} from '../src/lib/typed.config';
-import {Typed} from '../src';
-import {SomeClass} from './typed-test.entities';
-import {TypedReturnTest} from './typed-return-test.service';
+// import { TypedConfig, TypedOptions } from '../src/lib/typed.config';
+// import { Typed } from '../src';
+import { SomeClass } from './typed-test.entities';
+import { TypedReturnTest } from './typed-return-test.service';
 
 console.log('Start');
-const sampleService = new TypedTestService();
+// const sampleService = new TypedTestService();
 const sampleReturnService = new TypedReturnTest();
 //
-const x: any = 9;
+// const x: any = 9;
 const value = new SomeClass();
 value.id = 1;
-const y: any = new Date();
+// const y: any = new Date();
 
 // TypedConfig.set({
 //     enable: false,

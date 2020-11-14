@@ -3,6 +3,12 @@
 export class SomeClass {
     id: number;
     text: string;
+    privateInfo: number;
+}
+
+export class SomeClassCopy {
+    id: number;
+    text: string;
 }
 
 export class OtherClass {

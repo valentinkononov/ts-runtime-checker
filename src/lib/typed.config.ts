@@ -13,7 +13,6 @@ export interface TypedOptions {
  * Defines how @Typed decorator is configured, turned on or off, and other behavior
  */
 export class TypedConfig {
-
     /**
      * Read settings from process.env and generate default settings.
      * Default is: {
@@ -24,7 +23,7 @@ export class TypedConfig {
      */
     private static getInitialOptions(): TypedOptions {
         // console.log('[TypedConfig]: TYPED = ' + process.env.TYPED);
-        let envSetting: boolean = true;
+        let envSetting = true;
         if (process.env.TYPED && TypedConfig.parseBoolean(process.env.TYPED) === false) {
             envSetting = false;
         }
@@ -61,15 +60,23 @@ export class TypedConfig {
 
     private static parseBoolean(value: string): boolean {
         switch (value.toLowerCase().trim()) {
-            case 'true': case 'yes': case '1': return true;
-            case 'false': case 'no': case '0': case null: return false;
-            default: return Boolean(value);
+            case 'true':
+            case 'yes':
+            case '1':
+                return true;
+            case 'false':
+            case 'no':
+            case '0':
+            case null:
+                return false;
+            default:
+                return Boolean(value);
         }
     }
 
     // tslint:disable-next-line:ban-types
     public static ExcludeDecorator(decorator: Function) {
-        decorator = function() {
+        decorator = function () {
             // tslint:disable-next-line:ban-types
             return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
                 console.log('test rem');

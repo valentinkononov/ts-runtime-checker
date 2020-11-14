@@ -1,13 +1,13 @@
 import { Typed } from '../src';
-import {SomeClass, SomeInterface} from './typed-test.entities';
+import { SomeClass, SomeInterface } from './typed-test.entities';
 
 export class TypedTestService {
     public multiply(num: number, num2: number): number {
-        return  num * num2;
+        return num * num2;
     }
 
     public sum(num: number, num2: number): number {
-        return  num + num2;
+        return num + num2;
     }
 
     public multiplyCustomChecked(num: number, num2: number): number {
@@ -17,12 +17,12 @@ export class TypedTestService {
         if (typeof num2 !== 'number') {
             throw Error(`Argument 2 of function multiplyCustomChecked has incorrect type: ${typeof num2}`);
         }
-        return  num * num2;
+        return num * num2;
     }
 
     @Typed()
     public funcNumberTyped(num: number, num2: number): number {
-        return  num * num2;
+        return num * num2;
     }
 
     public funcDate(num: number, date: Date): Date {
@@ -54,7 +54,7 @@ export class TypedTestService {
     }
 
     public funcString(src: string, count: number): string {
-        let result: string = '';
+        let result = '';
         for (let i = 0; i < count; i++) {
             result += src;
         }
@@ -63,7 +63,7 @@ export class TypedTestService {
 
     @Typed()
     public funcStringTyped(src: string, count: number): string {
-        let result: string = '';
+        let result = '';
         for (let i = 0; i < count; i++) {
             result += src;
         }

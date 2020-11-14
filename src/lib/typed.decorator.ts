@@ -32,10 +32,9 @@ import { TypedConfig, TypedOptions } from './typed.config';
  * */
 // tslint:disable-next-line:ban-types
 export function Typed(config?: TypedOptions) {
-
     /*
-    * Log error or throw error depending on options settings
-    * */
+     * Log error or throw error depending on options settings
+     * */
     const logOrThrow = (message: string, options: TypedOptions) => {
         if (options.throwError) {
             throw new Error(message);
@@ -58,8 +57,8 @@ export function Typed(config?: TypedOptions) {
     };
 
     /*
-    * Identifies actual type of object by using typeof and than checking constructor name
-    * */
+     * Identifies actual type of object by using typeof and than checking constructor name
+     * */
     const getActualType = (value: any) => {
         let actualType = (typeof value).toString();
         if (value.constructor) {
@@ -69,8 +68,8 @@ export function Typed(config?: TypedOptions) {
     };
 
     /*
-    * Check that return type from metadata is the same as actual return type
-    * */
+     * Check that return type from metadata is the same as actual return type
+     * */
     // tslint:disable-next-line:ban-types
     const checkReturnType = (target: Object, propertyName: string, result: any, options: TypedOptions) => {
         const returnType = Reflect.getMetadata('design:returntype', target, propertyName);
@@ -86,8 +85,8 @@ export function Typed(config?: TypedOptions) {
     };
 
     /*
-    * Read parameters and types from reflect-metadata
-    * */
+     * Read parameters and types from reflect-metadata
+     * */
     // tslint:disable-next-line:ban-types
     const getParamsMetadata = (target: Object, propertyName: string) => {
         const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyName);
@@ -96,10 +95,16 @@ export function Typed(config?: TypedOptions) {
     };
 
     /*
-    * Check that length of expected arguments from metadata is equal to length of actual arguments in runtime
-    * */
+     * Check that length of expected arguments from metadata is equal to length of actual arguments in runtime
+     * */
     // tslint:disable-next-line:ban-types
-    const checkArgumentsLength = (target: Object, propertyName: string, paramTypes: any[], options: TypedOptions, args: any) => {
+    const checkArgumentsLength = (
+        target: Object,
+        propertyName: string,
+        paramTypes: any[],
+        options: TypedOptions,
+        args: any,
+    ) => {
         if (options.checkArgumentLength) {
             // 1 check length of arguments and parameters
             if (args.length !== paramTypes.length) {
@@ -110,10 +115,16 @@ export function Typed(config?: TypedOptions) {
     };
 
     /*
-    * check types of arguments and parameters in metadata, should be equal
-    * */
+     * check types of arguments and parameters in metadata, should be equal
+     * */
     // tslint:disable-next-line:ban-types
-    const checkArguments = (target: Object, propertyName: string, paramTypes: any[], options: TypedOptions, args: any) => {
+    const checkArguments = (
+        target: Object,
+        propertyName: string,
+        paramTypes: any[],
+        options: TypedOptions,
+        args: any,
+    ) => {
         for (let i = 0; i < args.length; i++) {
             // if we have more than expected number of arguments
             if (i >= paramTypes.length) {
@@ -139,7 +150,7 @@ export function Typed(config?: TypedOptions) {
     // tslint:disable-next-line:ban-types
     return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
         const method = descriptor.value;
-        descriptor.value = function() {
+        descriptor.value = function () {
             const options: TypedOptions = config || TypedConfig.get();
             if (!options.enable) {
                 return method.apply(this, arguments);
@@ -153,5 +164,4 @@ export function Typed(config?: TypedOptions) {
             return result;
         };
     };
-
 }
