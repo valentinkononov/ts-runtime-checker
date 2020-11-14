@@ -1,8 +1,7 @@
-import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from '../src/lib/typed.config';
+import { TypedTestService } from './typed-test.service';
+import { TypedConfig } from '../src/lib/typed.config';
 
 describe('typed-numbers', () => {
-
     let sampleService: TypedTestService;
 
     beforeEach(() => {

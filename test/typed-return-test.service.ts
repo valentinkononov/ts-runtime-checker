@@ -1,8 +1,7 @@
-import {Typed} from '../src';
-import {OtherClass, SomeClass, SomeInterface} from './typed-test.entities';
+import { Typed } from '../src';
+import { OtherClass, SomeClass, SomeInterface } from './typed-test.entities';
 
 export class TypedReturnTest {
-
     @Typed()
     public getNumberCorrect(): number {
         return 123;
@@ -25,7 +24,7 @@ export class TypedReturnTest {
 
     @Typed()
     public getNumberWrongObject(): number {
-        return {v: 3} as any;
+        return { v: 3 } as any;
     }
 
     @Typed()
@@ -50,7 +49,7 @@ export class TypedReturnTest {
 
     @Typed()
     public getStringWrongObject(): string {
-        return {v: 3} as any;
+        return { v: 3 } as any;
     }
 
     @Typed()
@@ -80,18 +79,18 @@ export class TypedReturnTest {
 
     @Typed()
     public getClassWrongObject(): SomeClass {
-        return {v: 3} as any;
+        return { v: 3 } as any;
     }
 
     @Typed()
     public getClassWrongInterface(): SomeClass {
-        const result: SomeInterface = {id: 1, text: 'test'};
+        const result: SomeInterface = { id: 1, text: 'test' };
         return result as any;
     }
 
     @Typed()
     public getInterfaceCorrect(): SomeInterface {
-        const result: SomeInterface = {id: 1, text: 'test'};
+        const result: SomeInterface = { id: 1, text: 'test' };
         return result;
     }
 
@@ -112,6 +111,6 @@ export class TypedReturnTest {
 
     @Typed()
     public getInterfaceWrongObject(): SomeInterface {
-        return {v: 3} as any;
+        return { v: 3 } as any;
     }
 }

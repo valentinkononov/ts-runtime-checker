@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import {Reflection} from 'typedoc';
 
 export function Typed() {
     return (
@@ -9,7 +8,7 @@ export function Typed() {
         descriptor: TypedPropertyDescriptor<Function>,
     ) => {
         const method = descriptor.value;
-        descriptor.value = function() {
+        descriptor.value = function () {
             checkTypes(target, propertyName, arguments);
             return method.apply(this, arguments);
         };
@@ -19,15 +18,11 @@ export function Typed() {
 export function TypedClass(): any {
     return (target: any) => {
         console.log(target);
-        const paramTypes = Reflect.getMetadata(
-            'design:paramtypes',
-            target.prototype,
-            'multiplyCustomChecked',
-        );
+        const paramTypes = Reflect.getMetadata('design:paramtypes', target.prototype, 'multiplyCustomChecked');
         console.log(paramTypes);
 
-        const classMembers = Object.getOwnPropertyDescriptors(target.prototype);    // tslint:disable
-        const memberNames = Object.keys(classMembers);  // tslint:disable
+        const classMembers = Object.getOwnPropertyDescriptors(target.prototype); // tslint:disable
+        const memberNames = Object.keys(classMembers); // tslint:disable
         memberNames.forEach(name => {
             const method: any = classMembers[name].value;
             if (method instanceof Function) {
@@ -48,7 +43,7 @@ function checkTypes(target: Object, propertyName: string, ...args: any): void {
     console.time('checkParams');
     console.time('metadata');
     const paramTypes = Reflect.getMetadata(
-        'design:paramtypes',    // design:type
+        'design:paramtypes', // design:type
         target,
         propertyName,
     );
@@ -56,7 +51,7 @@ function checkTypes(target: Object, propertyName: string, ...args: any): void {
     console.timeEnd('metadata');
     console.time('foreachParam');
     if (paramTypes) {
-        paramTypes.forEach((param, index) => {
+        paramTypes.forEach((param: any, index: any) => {
             const actualType = typeof args[index];
             const expectedType = param instanceof Function ? typeof param() : param.name;
             if (actualType !== expectedType) {
