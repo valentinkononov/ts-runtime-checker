@@ -39,7 +39,7 @@ export class TypedConfig {
     /**
      * Set initial configuration, read settings from process.env
      */
-    public static reset() {
+    public static reset(): void {
         this.options = TypedConfig.getInitialOptions();
     }
 
@@ -50,7 +50,7 @@ export class TypedConfig {
      *      - throwError: true or false. It defines how it should work, log error or throw it
      *      - checkArgumentLength: true or false. It defines should decorator check length of arguments
      */
-    public static set(options: TypedOptions) {
+    public static set(options: TypedOptions): void {
         this.options = options;
     }
 
@@ -72,16 +72,5 @@ export class TypedConfig {
             default:
                 return Boolean(value);
         }
-    }
-
-    // tslint:disable-next-line:ban-types
-    public static ExcludeDecorator(decorator: Function) {
-        decorator = function () {
-            // tslint:disable-next-line:ban-types
-            return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
-                console.log('test rem');
-                return descriptor.value.apply(this, arguments);
-            };
-        };
     }
 }
