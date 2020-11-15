@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { TypedConfig, TypedOptions } from './typed.config';
+import { getActualType, logOrThrow, logOrThrowIncorrectArgument, logOrThrowIncorrectReturnType } from './typed.utils';
 
 // target = class
 // propertyName = function
@@ -18,8 +19,7 @@ import { TypedConfig, TypedOptions } from './typed.config';
 // TODO: Optional arguments checks
 // DONE: Tests for conditional types
 // DONE: move all checks into separate functions
-// TODO: remove console logs
-// TODO: re-write logOrThrow to initiate kind of logger, depending on options
+// DONE: re-write logOrThrow to initiate kind of logger, depending on options
 // DONE: check return type by 'design:returntype'
 // DONE: decorator for class ??
 // TODO: research about checks everywhere
@@ -34,20 +34,6 @@ export function Typed(
     config?: TypedOptions,
 ): // eslint-disable-next-line @typescript-eslint/ban-types
 (target: unknown, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => void {
-    /*
-     * Log error or throw error depending on options settings
-     * */
-    const logOrThrow = (message: string, options: TypedOptions): void => {
-        if (options.throwError) {
-            throw new Error(message);
-        } else if (options.customLogger) {
-            options.customLogger(message);
-        } else {
-            // tslint:disable-next-line:no-console
-            console.log(message);
-        }
-    };
-
     // eslint-disable-next-line
     const logParamsInfo = (paramTypes: any[]) => {
         // each element in paramTypes has: name, isArray, prototype, from, of
@@ -56,17 +42,6 @@ export function Typed(
         console.debug(Object.getOwnPropertyNames(paramTypes[0].prototype.constructor));
         console.debug(paramTypes[0].name);
         console.debug(paramTypes[0].prototype.name);
-    };
-
-    /*
-     * Identifies actual type of object by using typeof and than checking constructor name
-     * */
-    const getActualType = (value: unknown): string => {
-        let actualType = (typeof value).toString();
-        if (value.constructor) {
-            actualType = value.constructor.name;
-        }
-        return actualType;
     };
 
     /*
@@ -80,8 +55,13 @@ export function Typed(
             const actualReturnType = getActualType(result);
             // console.log(`[TEST-RETURN]: ${expectedReturnType}, ${actualReturnType}`);
             if (actualReturnType !== expectedReturnType) {
-                const errorMessage = `Function ${propertyName} of class ${target.constructor.name} return type: ${actualReturnType} is different from expected return type: ${expectedReturnType}.`;
-                logOrThrow(errorMessage, options);
+                logOrThrowIncorrectReturnType(
+                    propertyName,
+                    target.constructor.name,
+                    actualReturnType,
+                    expectedReturnType,
+                    options,
+                );
             }
         }
     };
@@ -143,10 +123,15 @@ export function Typed(
             //     // expectedType = typeof paramTypes[i]();
             // }
 
-            // console.log('[TEST]', actualType, expectedType);
             if (actualType !== expectedType) {
-                const errorMessage = `Argument in function ${propertyName} of class ${target.constructor.name}: ${args[i]} has type: ${actualType} different from expected type: ${expectedType}.`;
-                logOrThrow(errorMessage, options);
+                logOrThrowIncorrectArgument(
+                    propertyName,
+                    target.constructor.name,
+                    args[i],
+                    actualType,
+                    expectedType,
+                    options,
+                );
             }
         }
     };
