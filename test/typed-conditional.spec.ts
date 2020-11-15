@@ -1,8 +1,7 @@
-import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from '../src';
+import { TypedTestService } from './typed-test.service';
+import { TypedConfig } from '../src';
 
 describe('typed-conditional', () => {
-
     let sampleService: TypedTestService;
 
     beforeEach(() => {
@@ -17,14 +16,10 @@ describe('typed-conditional', () => {
 
     describe('conditional type without decorator', () => {
         it('should return puhpuh as incremented puh', () => {
-            expect(
-                sampleService.funcConditional('puh'),
-            ).toStrictEqual('puhpuh');
+            expect(sampleService.funcConditional('puh')).toStrictEqual('puhpuh');
         });
         it('should return 22 as string incremented 2', () => {
-            expect(
-                sampleService.funcConditional(2),
-            ).toStrictEqual('22');
+            expect(sampleService.funcConditional(2)).toStrictEqual('22');
         });
     });
 
@@ -76,5 +71,4 @@ describe('typed-conditional', () => {
     //         }).toThrow();
     //     });
     // });
-
 });

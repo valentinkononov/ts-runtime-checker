@@ -1,9 +1,8 @@
-import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from '../src/lib/typed.config';
-import {OtherClass, SomeClass} from './typed-test.entities';
+import { TypedTestService } from './typed-test.service';
+import { TypedConfig } from '../src';
+import { OtherClass, SomeClass } from './typed-test.entities';
 
 describe('typed-classes', () => {
-
     let sampleService: TypedTestService;
 
     beforeEach(() => {
@@ -22,9 +21,7 @@ describe('typed-classes', () => {
             value.id = 1;
             value.text = 'test';
 
-            expect(
-                sampleService.funcClass(value),
-            ).toEqual({
+            expect(sampleService.funcClass(value)).toEqual({
                 id: 1,
                 text: 'test copy',
             } as SomeClass);
@@ -37,9 +34,7 @@ describe('typed-classes', () => {
             value.id = 1;
             value.text = 'test';
 
-            expect(
-                sampleService.funcClassTyped(value),
-            ).toEqual({
+            expect(sampleService.funcClassTyped(value)).toEqual({
                 id: 1,
                 text: 'test copy',
             } as SomeClass);
@@ -102,5 +97,4 @@ describe('typed-classes', () => {
             }).toThrow();
         });
     });
-
 });
