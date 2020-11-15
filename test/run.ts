@@ -1,32 +1,23 @@
 import { TypedTestService } from './typed-test.service';
-import {TypedConfig, TypedOptions} from '../src/lib/typed.config';
-import {Typed} from '../src';
-import {SomeClass} from './typed-test.entities';
-import {TypedReturnTest} from './typed-return-test.service';
+// import { TypedConfig, TypedOptions } from '../src/lib/typed.config';
+// import { Typed } from '../src';
+import { SomeClass } from './typed-test.entities';
+import { TypedReturnTest } from './typed-return-test.service';
 
 console.log('Start');
-const sampleService = new TypedTestService();
+// const sampleService = new TypedTestService();
 const sampleReturnService = new TypedReturnTest();
 //
-const x: any = 9;
+// const x: any = 9;
 const value = new SomeClass();
 value.id = 1;
-const y: any = new Date();
+// const y: any = new Date();
 
 // TypedConfig.set({
 //     enable: false,
 //     throwError: true,
 //     checkArgumentLength: true,.env
 // });
-
-// TypedConfig.ExcludeDecorator(Typed);
-// Typed.prototype = function() {
-//     // tslint:disable-next-line:ban-types
-//     return (target: Object, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) => {
-//         console.log('test rem')
-//         return descriptor.value.apply(this, arguments);
-//     };
-// };
 
 // let result = sampleService.funcDateTyped(x, new Date());
 // const result = sampleService.funcConditionalTyped('22');
