@@ -1,6 +1,6 @@
-import { TypedConfig } from '../src/lib/typed.config';
+import { TypedConfig } from '../src';
 import { TypedReturnTest } from './typed-return-test.service';
-import { SomeClass, SomeInterface } from './typed-test.entities';
+import { SomeClass } from './typed-test.entities';
 
 describe('return types', () => {
     let sampleService: TypedReturnTest;

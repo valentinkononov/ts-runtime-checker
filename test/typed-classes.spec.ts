@@ -1,5 +1,5 @@
 import { TypedTestService } from './typed-test.service';
-import { TypedConfig } from '../src/lib/typed.config';
+import { TypedConfig } from '../src';
 import { OtherClass, SomeClass } from './typed-test.entities';
 
 describe('typed-classes', () => {
