@@ -1,8 +1,7 @@
-import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from '../src/lib/typed.config';
+import { TypedTestService } from './typed-test.service';
+import { TypedConfig } from '../src';
 
 describe('typed-boolean', () => {
-
     let sampleService: TypedTestService;
 
     beforeEach(() => {
@@ -17,17 +16,13 @@ describe('typed-boolean', () => {
 
     describe('boolean without decorator', () => {
         it('should return 3 as incremented 2', () => {
-            expect(
-                sampleService.funcBoolean(2, true),
-            ).toStrictEqual(3);
+            expect(sampleService.funcBoolean(2, true)).toStrictEqual(3);
         });
     });
 
     describe('boolean with decorator, correct arguments', () => {
         it('should return 3 as incremented 2', () => {
-            expect(
-                sampleService.funcBooleanTyped(2, true),
-            ).toStrictEqual(3);
+            expect(sampleService.funcBooleanTyped(2, true)).toStrictEqual(3);
         });
     });
 
@@ -75,5 +70,4 @@ describe('typed-boolean', () => {
             }).toThrow();
         });
     });
-
 });

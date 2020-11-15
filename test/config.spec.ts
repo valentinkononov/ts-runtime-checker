@@ -1,8 +1,7 @@
-import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from '../src/lib/typed.config';
+import { TypedTestService } from './typed-test.service';
+import { TypedConfig } from '../src/lib/typed.config';
 
 describe('config', () => {
-
     let sampleService: TypedTestService;
 
     beforeEach(() => {
@@ -22,9 +21,7 @@ describe('config', () => {
                 checkArgumentLength: true,
             });
             const testArg: any = 'bad';
-            expect(
-                sampleService.funcNumberTyped(2, testArg),
-            ).toStrictEqual(NaN);
+            expect(sampleService.funcNumberTyped(2, testArg)).toStrictEqual(NaN);
         });
     });
 
@@ -50,9 +47,24 @@ describe('config', () => {
                 checkArgumentLength: true,
             });
             const testArg: any = 'bad';
+            expect(sampleService.funcNumberTyped(2, testArg)).toStrictEqual(NaN);
+        });
+    });
+
+    describe('custom logger', () => {
+        it('should call custom logger', () => {
+            const customLogger = jest.fn();
+            TypedConfig.set({
+                enable: true,
+                throwError: false,
+                checkArgumentLength: true,
+                customLogger,
+            });
+            const testArg: any = 'bad';
             expect(
                 sampleService.funcNumberTyped(2, testArg),
             ).toStrictEqual(NaN);
+            expect(customLogger).toHaveBeenCalled();
         });
     });
 });

@@ -1,8 +1,7 @@
-import {TypedTestService} from './typed-test.service';
-import {TypedConfig} from '../src/lib/typed.config';
+import { TypedTestService } from './typed-test.service';
+import { TypedConfig } from '../src';
 
 describe('typed-string', () => {
-
     let sampleService: TypedTestService;
 
     beforeEach(() => {
@@ -17,17 +16,13 @@ describe('typed-string', () => {
 
     describe('string without decorator', () => {
         it('should return puhpuh as incremented puh', () => {
-            expect(
-                sampleService.funcString('puh', 2),
-            ).toStrictEqual('puhpuh');
+            expect(sampleService.funcString('puh', 2)).toStrictEqual('puhpuh');
         });
     });
 
     describe('string with decorator, correct arguments', () => {
         it('should return puhpuh as incremented puh', () => {
-            expect(
-                sampleService.funcStringTyped('puh', 2),
-            ).toStrictEqual('puhpuh');
+            expect(sampleService.funcStringTyped('puh', 2)).toStrictEqual('puhpuh');
         });
     });
 
@@ -75,5 +70,4 @@ describe('typed-string', () => {
             }).toThrow();
         });
     });
-
 });
