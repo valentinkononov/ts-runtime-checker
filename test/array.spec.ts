@@ -35,7 +35,7 @@ describe('typed-arrays-num', () => {
             const value: any = { v: 3 };
             expect(() => {
                 sampleService.funcArrayNumTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -44,7 +44,7 @@ describe('typed-arrays-num', () => {
             const value: any = 3;
             expect(() => {
                 sampleService.funcArrayNumTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -53,7 +53,7 @@ describe('typed-arrays-num', () => {
             const value: any = '21 march';
             expect(() => {
                 sampleService.funcArrayNumTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -62,7 +62,7 @@ describe('typed-arrays-num', () => {
             const value: any = new Date();
             expect(() => {
                 sampleService.funcArrayNumTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -74,7 +74,7 @@ describe('typed-arrays-num', () => {
     //         const value: any = ['str'];
     //         expect(() => {
     //             sampleService.funcArrayNumTyped(value);
-    //         }).toThrow();
+    //         }).toThrow(TypeError);
     //     });
     // });
     //
@@ -83,7 +83,7 @@ describe('typed-arrays-num', () => {
     //         const value: any = [{v: 3}];
     //         expect(() => {
     //             sampleService.funcArrayNumTyped(value);
-    //         }).toThrow();
+    //         }).toThrow(TypeError);
     //     });
     // });
 });

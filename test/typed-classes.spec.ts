@@ -46,7 +46,7 @@ describe('typed-classes', () => {
             const value: any = { v: 3 };
             expect(() => {
                 sampleService.funcClassTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -58,7 +58,7 @@ describe('typed-classes', () => {
 
             expect(() => {
                 sampleService.funcClassTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -67,7 +67,7 @@ describe('typed-classes', () => {
             const value: any = 3;
             expect(() => {
                 sampleService.funcClassTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -76,7 +76,7 @@ describe('typed-classes', () => {
             const value: any = '21 march';
             expect(() => {
                 sampleService.funcClassTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -85,7 +85,7 @@ describe('typed-classes', () => {
             const value: any = [3];
             expect(() => {
                 sampleService.funcClassTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -94,7 +94,7 @@ describe('typed-classes', () => {
             const value: any = [3, 4, 5];
             expect(() => {
                 sampleService.funcClassTyped(value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 });

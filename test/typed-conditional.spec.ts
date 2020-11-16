@@ -41,7 +41,7 @@ describe('typed-conditional', () => {
     //         const value: any = { v: 3 };
     //         expect(() => {
     //             sampleService.funcConditionalTyped(value);
-    //         }).toThrow();
+    //         }).toThrow(TypeError);
     //     });
     // });
     //
@@ -50,7 +50,7 @@ describe('typed-conditional', () => {
     //         const value: any = true;
     //         expect(() => {
     //             sampleService.funcConditionalTyped(value);
-    //         }).toThrow();
+    //         }).toThrow(TypeError);
     //     });
     // });
     //
@@ -59,7 +59,7 @@ describe('typed-conditional', () => {
     //         const value: any = [3];
     //         expect(() => {
     //             sampleService.funcConditionalTyped(value);
-    //         }).toThrow();
+    //         }).toThrow(TypeError);
     //     });
     // });
     //
@@ -68,7 +68,7 @@ describe('typed-conditional', () => {
     //         const value: any = [3, 4, 5];
     //         expect(() => {
     //             sampleService.funcConditionalTyped(value);
-    //         }).toThrow();
+    //         }).toThrow(TypeError);
     //     });
     // });
 });

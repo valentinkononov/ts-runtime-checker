@@ -1,6 +1,12 @@
 import { getActualType, logOrThrowIncorrectArgument, logOrThrowIncorrectReturnType, Type } from './typed.utils';
 import { TypedConfig } from './typed.config';
 
+/*
+ * Experimental function to check types in runtime for standalone functions, which are not part of any class
+ * Because there is no metadata for such cases, we need to provide Types info when calling this function
+ * sample: `checked<Number, Number>(doubleNumber, value, Number, Number);`
+ * I'm working to find a better way, but this is OK for library functions, which is exposed outside
+ * */
 export function checked<TInput1, TOut>(
     fn: (arg1: TInput1) => TOut,
     arg1: TInput1,
