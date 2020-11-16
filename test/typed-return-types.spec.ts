@@ -25,31 +25,31 @@ describe('return types', () => {
         it('should throw error instead of returning string', () => {
             expect(() => {
                 sampleService.getNumberWrongString();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning boolean', () => {
             expect(() => {
                 sampleService.getNumberWrongBoolean();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning array', () => {
             expect(() => {
                 sampleService.getNumberWrongArray();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning class', () => {
             expect(() => {
                 sampleService.getNumberWrongClass();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning object', () => {
             expect(() => {
                 sampleService.getNumberWrongObject();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -63,25 +63,25 @@ describe('return types', () => {
         it('should throw error instead of returning array', () => {
             expect(() => {
                 sampleService.getStringWrongArray();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning class instance', () => {
             expect(() => {
                 sampleService.getStringWrongClass();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning number', () => {
             expect(() => {
                 sampleService.getStringWrongNumber();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning object', () => {
             expect(() => {
                 sampleService.getStringWrongObject();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -98,29 +98,29 @@ describe('return types', () => {
         it('should throw error instead of returning number', () => {
             expect(() => {
                 sampleService.getClassWrongNumber();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning class object', () => {
             expect(() => {
                 sampleService.getClassWrongObject();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning instance of other class', () => {
             expect(() => {
                 sampleService.getClassWrongOtherClass();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         it('should throw error instead of returning string', () => {
             expect(() => {
                 sampleService.getClassWrongString();
-            }).toThrow();
+            }).toThrow(TypeError);
         });
 
         // it('should throw error instead of returning interface instance', () => {
-        //     expect(() => { sampleService.getClassWrongInterface(); }).toThrow();
+        //     expect(() => { sampleService.getClassWrongInterface(); }).toThrow(TypeError);
         // });
     });
 });

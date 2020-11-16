@@ -31,7 +31,7 @@ describe('typed-boolean', () => {
             const value: any = { v: 3 };
             expect(() => {
                 sampleService.funcBooleanTyped(2, value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -40,7 +40,7 @@ describe('typed-boolean', () => {
             const value: any = 3;
             expect(() => {
                 sampleService.funcBooleanTyped(2, value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -49,7 +49,7 @@ describe('typed-boolean', () => {
             const value: any = '21 march';
             expect(() => {
                 sampleService.funcBooleanTyped(2, value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -58,7 +58,7 @@ describe('typed-boolean', () => {
             const value: any = [3];
             expect(() => {
                 sampleService.funcBooleanTyped(2, value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -67,7 +67,7 @@ describe('typed-boolean', () => {
             const value: any = [3, 4, 5];
             expect(() => {
                 sampleService.funcBooleanTyped(2, value);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 });

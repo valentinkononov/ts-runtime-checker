@@ -28,7 +28,7 @@ import { getActualType, logOrThrow, logOrThrowIncorrectArgument, logOrThrowIncor
 
 /***
  * Typed decorator checks function arguments amount and types in runtime
- * In case if caller used incorrect types in runtime, Error will be thrown
+ * In case if caller used incorrect types in runtime, TypeError will be thrown
  * */
 export function Typed(
     config?: TypedOptions,

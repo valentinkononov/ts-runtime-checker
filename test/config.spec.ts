@@ -35,7 +35,7 @@ describe('config', () => {
             const testArg: any = 'bad';
             expect(() => {
                 sampleService.funcNumberTyped(2, testArg);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 

@@ -1,5 +1,4 @@
-import { TypedConfig } from '../src';
-import { checked } from '../src/lib/checked.function';
+import { TypedConfig, checked } from '../src';
 
 function doubleNumber(value: number): number {
     return value * 2;
@@ -26,7 +25,7 @@ describe('checked-numbers', () => {
             const value: any = { v: 3 };
             expect(() => {
                 checked<Number, Number>(doubleNumber, value, Number, Number);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -35,7 +34,7 @@ describe('checked-numbers', () => {
             const value: any = new Date();
             expect(() => {
                 checked<Number, Number>(doubleNumber, value, Number, Number);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -44,7 +43,7 @@ describe('checked-numbers', () => {
             const value: any = '3';
             expect(() => {
                 checked<Number, Number>(doubleNumber, value, Number, Number);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -53,7 +52,7 @@ describe('checked-numbers', () => {
             const value: any = [3];
             expect(() => {
                 checked<Number, Number>(doubleNumber, value, Number, Number);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 
@@ -62,7 +61,7 @@ describe('checked-numbers', () => {
             const value: any = [3, 4, 5];
             expect(() => {
                 checked<Number, Number>(doubleNumber, value, Number, Number);
-            }).toThrow();
+            }).toThrow(TypeError);
         });
     });
 });

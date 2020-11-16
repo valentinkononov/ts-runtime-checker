@@ -16,7 +16,7 @@ export const getActualType = (value: unknown): string => {
  * */
 export const logOrThrow = (message: string, options: TypedOptions): void => {
     if (options.throwError) {
-        throw new Error(message);
+        throw new TypeError(message);
     } else if (options.customLogger) {
         options.customLogger(message);
     } else {
