@@ -16,7 +16,8 @@
     "license": "MIT",
     "files": [
         "dist/src",
-        "postinstall.js"
+        "postinstall.js",
+        "index.js"
     ],
     "scripts": {
         "prebuild": "rimraf dist",
