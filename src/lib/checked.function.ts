@@ -1,9 +1,4 @@
-import {
-    getActualType,
-    logOrThrowIncorrectArgument,
-    logOrThrowIncorrectReturnType,
-    Type
-} from './typed.utils';
+import { getActualType, logOrThrowIncorrectArgument, logOrThrowIncorrectReturnType, Type } from './typed.utils';
 import { TypedConfig } from './typed.config';
 
 export function checked<TInput1, TOut>(
@@ -24,7 +19,7 @@ export function checked<TInput1, TOut>(
     const resultActualType = getActualType(result);
     const resultExpectedType = outType.name;
     if (resultActualType !== resultExpectedType) {
-        logOrThrowIncorrectReturnType(fn.name, 'global', resultActualType, resultExpectedType, TypedConfig.get())
+        logOrThrowIncorrectReturnType(fn.name, 'global', resultActualType, resultExpectedType, TypedConfig.get());
     }
     return result;
 }
