@@ -19,6 +19,7 @@
         "postinstall.js",
         "index.js"
     ],
+    "sideEffects": false,
     "scripts": {
         "prebuild": "rimraf dist",
         "debug": "npx tsc --watch",
