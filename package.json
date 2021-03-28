@@ -13,6 +13,10 @@
         "check",
         "strong"
     ],
+    "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/ts-stronger-types"
+    },
     "license": "MIT",
     "files": [
         "dist/src",
@@ -40,7 +44,7 @@
         "coverage": "npm test && opener coverage/lcov-report/index.html",
         "upload-coverage": "codecov",
         "prepublish": "npm run lint && npm run build && npm run test",
-        "postinstall": "node postinstall.js",
+        "postinstall": "node postinstall.js && opencollective postinstall",
         "triggerBuild": "git commit --allow-empty -n -m trigger && git push"
     },
     "husky": {
@@ -59,29 +63,30 @@
     },
     "dependencies": {
         "dotenv": "^8.2.0",
+        "opencollective": "^1.0.3",
         "reflect-metadata": "^0.1.13"
     },
     "devDependencies": {
-        "rimraf": "^3.0.2",
         "@compodoc/compodoc": "^1.1.11",
         "@types/jest": "^26.0.15",
         "@types/node": "^14.14.7",
         "@types/supertest": "^2.0.10",
+        "@typescript-eslint/eslint-plugin": "^4.3.0",
+        "@typescript-eslint/parser": "^4.3.0",
+        "codecov": "^3.8.1",
+        "eslint": "^7.10.0",
+        "eslint-config-prettier": "^6.12.0",
+        "eslint-plugin-prettier": "^3.1.4",
         "jest": "^26.6.3",
         "prettier": "^2.1.2",
+        "rimraf": "^3.0.2",
         "supertest": "^6.0.1",
         "ts-jest": "^26.4.4",
         "ts-loader": "^8.0.11",
         "ts-node": "^9.0.0",
         "tsconfig-paths": "^3.9.0",
         "typedoc": "^0.19.2",
-        "typescript": "^4.0.5",
-        "codecov": "^3.8.1",
-        "@typescript-eslint/eslint-plugin": "^4.3.0",
-        "@typescript-eslint/parser": "^4.3.0",
-        "eslint": "^7.10.0",
-        "eslint-config-prettier": "^6.12.0",
-        "eslint-plugin-prettier": "^3.1.4"
+        "typescript": "^4.0.5"
     },
     "jest": {
         "moduleFileExtensions": [
@@ -96,5 +101,10 @@
         },
         "coverageDirectory": "./coverage",
         "testEnvironment": "node"
+    },
+    "collective": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/ts-stronger-types",
+        "logo": "https://opencollective.com/ts-stronger-types/logo.txt"
     }
 }
